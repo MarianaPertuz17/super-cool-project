@@ -1,24 +1,26 @@
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
+import { useSearch } from './useSearch';
 
 function App() {
+
+  const [ query, setQuery ] = useState('');
+  const [ pageNumber, setPageNumber ] = useState(1);
+
+  const handleSearch = (e) => {
+    const { value } = e.target;
+    setQuery(value);
+    setPageNumber(1);
+  }
+
+  useSearch(query, pageNumber)
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <input type='text' onChange={handleSearch}/>
+      <div>Title</div>
+      <div>Loading...</div>
+      <div>Error</div>
+    </>
   );
 }
 
