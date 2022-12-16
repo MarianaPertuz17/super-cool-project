@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import './App.css';
-import { useSearch } from './useSearch';
+import { useSearch } from './hooks/useSearch';
 
 function App() {
 
