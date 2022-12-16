@@ -4,16 +4,12 @@ import { useSearch } from './hooks/useSearch';
 
 function App() {
 
-  // const handleSearch = (e) => {
-  //   const { value } = e.target;
-  //   setQuery(value);
-  //   setPageNumber(1);
-  // }
+  const [ pageNumber, setPageNumber ] = useState(1);
+  const { isLoading, isError, error, results, hasNextPage } = useSearch(pageNumber);
 
-  // useSearch(query, pageNumber)
+  console.log(results);
   return (
     <>
-      {/* <input type='text' onChange={handleSearch}/> */}
       <div>Title</div>
       <div>Loading...</div>
       <div>Error</div>
