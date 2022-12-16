@@ -4,9 +4,9 @@ import axios from "axios";
 export function useSearch(query, pageNumber) {
 
   useEffect(() => {
-    axios({
+    axios({ 
       method: 'GET',
-      url: 'http://openlibrary.org/search.json', //'http://openlibrary.org/trending/daily'
+      url: 'https://jsonplaceholder.typicode.com/posts', //'http://openlibrary.org/trending/daily'
       params: { q: query, page: pageNumber}
     }).then(res => {
       console.log(res.data)
