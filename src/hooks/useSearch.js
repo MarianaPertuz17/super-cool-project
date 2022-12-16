@@ -1,18 +1,32 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import { getPostsPage } from "../api/axios";
 
-export function useSearch(query, pageNumber) {
+export function useSearch(pageNumber = 1) {
+
+  const [ results, setResults ] = useState([]);
+  const [ isError, setIsError ] = useState(false);
+  const [ isLoading, setIsLoading ] = useState(false); 
+  const [ error, setError ] = useState({});
+  const [ hasNextPage, setHasNextPage ] = useState(false);
 
   useEffect(() => {
-    axios({ 
-      method: 'GET',
-      url: 'https://jsonplaceholder.typicode.com/posts', //'http://openlibrary.org/trending/daily'
-      params: { q: query, page: pageNumber}
-    }).then(res => {
-      console.log(res.data)
-    })
+    setIsLoading(true);
+    setIsError(false);
+    setError({});
 
-  }, [query, pageNumber])
+    getPostsPage(pageNumber)
+      .then(data => {
+        setResults(prevData => [...prevData, ...data]);
+        setHasNextPage(Boolean(data.length));
+        setIsLoading(false);
+      })
+      .catch(e => {
+        setIsLoading(false);
+        setIsError(true);
+        setError({message: e.message});
+      })
 
-  return null
+  }, [pageNumber])
+
+  return { isLoading, isError, error, results, hasNextPage}
 }
