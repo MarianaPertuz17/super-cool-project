@@ -8,14 +8,12 @@ function App() {
   const [ pageNumber, setPageNumber ] = useState(1);
   const { isLoading, isError, error, results, hasNextPage } = useSearch(pageNumber);
 
-  console.log(results);
+  const lastPostRef = useRef();
 
   if ( isError ) return <p>Error: {error}</p>
 
-  // const lastPostRef = useRef();
-
   const content = results.map((post, i) => {
-    if (results.length === i+1) console.log(post, 'las element');
+    if (results.length === i+1) return <Post ref={lastPostRef} key={post.id} post={post}/>
     return <Post key={post.id} post={post}/>
   })
 
