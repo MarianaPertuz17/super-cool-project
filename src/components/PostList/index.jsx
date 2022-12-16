@@ -8,7 +8,9 @@ export function PostList() {
   const [ pageNumber, setPageNumber ] = useState(1);
   const { isLoading, isError, error, results, hasNextPage } = useSearch(pageNumber);
 
-  const intObserver = useRef();
+  const intObserver = useRef(); //NO ENTIENDO ESTO
+
+  console.log(intObserver, 'EL INT OBSERVER  ')
 
   const lastPostRef = useCallback(post => {
     if (isLoading) return;
@@ -36,7 +38,7 @@ export function PostList() {
       <div>Title</div>
       {content}
       {isLoading && <p>Loading more posts...</p>}
-      <p>Back to top</p>
+      <p><a href='#top'>Back to top</a></p>
     </>
   );
 }
