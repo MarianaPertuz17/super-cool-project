@@ -8,7 +8,21 @@ export function PostList() {
   const [ pageNumber, setPageNumber ] = useState(1);
   const { isLoading, isError, error, results, hasNextPage } = useSearch(pageNumber);
 
-  const lastPostRef = useRef();
+  const intObserver = useRef();
+
+  const lastPostRef = useCallback(post => {
+    if (isLoading) return;
+    if (intObserver.current) intObserver.current.disconnect(); //stop looking if we already have one
+    
+    intObserver.current = new IntersectionObserver(posts => {
+      if (posts[0].isIntersecting && hasNextPage) {
+        setPageNumber(prev => prev + 1 );
+        console.log('we are near the last post')
+      }
+    })
+
+    if (post) intObserver.current.observe(post);
+  }, [isLoading, hasNextPage])
 
   if ( isError ) return <p>Error: {error.message}</p>
 
