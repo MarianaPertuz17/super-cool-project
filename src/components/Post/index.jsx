@@ -2,6 +2,7 @@ import React from 'react'
 
 const Post = React.forwardRef(({post}, ref) => {
 
+  console.log('Im in Post', post.id)
   const postBody = (
     <>
       <h2>{post.title}</h2>

@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, useCallback } from 'react';
 import { useSearch } from '../../hooks/useSearch';
 import Post from '../Post';
 
@@ -10,7 +10,7 @@ export function PostList() {
 
   const lastPostRef = useRef();
 
-  if ( isError ) return <p>Error: {error}</p>
+  if ( isError ) return <p>Error: {error.message}</p>
 
   const content = results.map((post, i) => {
     if (results.length === i+1) return <Post ref={lastPostRef} key={post.id} post={post}/>

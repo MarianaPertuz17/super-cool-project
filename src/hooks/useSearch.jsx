@@ -14,7 +14,10 @@ export function useSearch(pageNumber = 1) {
     setIsError(false);
     setError({});
 
-    getPostsPage(pageNumber)
+    const controller = new AbortController();
+    const { signal } = controller;
+
+    getPostsPage(pageNumber, { signal })
       .then(data => {
         setResults(prevData => [...prevData, ...data]);
         setHasNextPage(Boolean(data.length));
@@ -22,9 +25,12 @@ export function useSearch(pageNumber = 1) {
       })
       .catch(e => {
         setIsLoading(false);
+        if (signal.aborted) return ;
         setIsError(true);
         setError({message: e.message});
       })
+
+      return () => controller.abort();
 
   }, [pageNumber])
 
