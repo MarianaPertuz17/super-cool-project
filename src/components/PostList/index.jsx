@@ -7,7 +7,6 @@ export function PostList() {
 
   const [ pageNumber, setPageNumber ] = useState(1);
   const { isLoading, isError, error, results, hasNextPage } = useSearch(pageNumber);
-
   const intObserver = useRef(); //NO ENTIENDO ESTO
 
   /*
