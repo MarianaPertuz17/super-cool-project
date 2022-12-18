@@ -7,7 +7,7 @@ export function PostList() {
 
   const [ pageNumber, setPageNumber ] = useState(1);
   const { isLoading, isError, error, results, hasNextPage } = useSearch(pageNumber);
-  const intObserver = useRef(); //NO ENTIENDO ESTO
+  const intObserver = useRef();
 
   /*
   Con useRef() se está creando un objeto que contiene current que es el valor actual. Con esto se mantiene el 
