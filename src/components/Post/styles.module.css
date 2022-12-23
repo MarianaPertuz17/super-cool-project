@@ -1,4 +1,7 @@
-.container {
-  margin-bottom: 2vh;
+.card {
+  margin-bottom: 7vh;
   background-color: rgb(49, 49, 118);
+  color: white;
+  border-radius: 10px;
+  padding: 1vh 3vh;
 }

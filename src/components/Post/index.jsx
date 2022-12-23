@@ -4,8 +4,8 @@ import styles from './styles.module.css'
 const Post = React.forwardRef(({post}, ref) => {
 
   const postBody = (
-    <div className={styles.container}>
-      <h2>{post.title}</h2>
+    <div className={styles.card}>
+      <h2 >{post.title}</h2>
       <p>{post.body}</p>
       <p>Post ID: {post.id}</p>
     </div>
