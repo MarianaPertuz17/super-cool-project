@@ -5,7 +5,7 @@ const Post = React.forwardRef(({post}, ref) => {
 
   const postBody = (
     <div className={styles.card}>
-      <h2 >{post.title}</h2>
+      <h2>{(post.title).toUpperCase()}</h2>
       <p>{post.body}</p>
       <p>Post ID: {post.id}</p>
     </div>
