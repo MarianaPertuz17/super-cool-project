@@ -39,7 +39,7 @@ export function PostList() {
 
   return (
     <div className={styles.container}>
-      <div>Title</div>      
+      <div>POSTS</div>      
       {content}
       {isLoading && <p>Loading more posts...</p>}
       <p><a href='#top'>Back to top</a></p>
