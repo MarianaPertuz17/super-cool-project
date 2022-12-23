@@ -7,11 +7,12 @@ import {
   Route,
 } from 'react-router-dom';
 
-function App() {
 
+function App() {
   return (
     <Router>
       <Routes>
+        <Route path={routes.HOME} element={<PostList/>}/>
         <Route path={routes.POSTS} element={<PostList/>}/>
       </Routes>
     </Router>

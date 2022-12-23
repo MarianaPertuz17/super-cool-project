@@ -1,6 +1,7 @@
 import { useRef, useState, useCallback } from 'react';
 import { useSearch } from '../../hooks/useSearch';
 import Post from '../Post';
+import styles from './styles.module.css'
 
 
 export function PostList() {
@@ -37,12 +38,12 @@ export function PostList() {
   })
 
   return (
-    <>
+    <div className={styles.container}>
       <div>Title</div>      
       {content}
       {isLoading && <p>Loading more posts...</p>}
       <p><a href='#top'>Back to top</a></p>
-    </>
+    </div>
   );
 }
 
