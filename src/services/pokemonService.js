@@ -1,6 +1,6 @@
 const url = 'https://pokeapi.co/api/v2/pokemon/';
 
-const pokemonServices = {};
+export const pokemonServices = {};
 
 pokemonServices.getRawPokemon = () => {
   return fetch(url)
