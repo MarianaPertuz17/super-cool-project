@@ -3,19 +3,28 @@ import { pokemonServices } from "../../services/pokemonService"
 
 export function PokemonDashboard () {
 
-  const [ rawPokemon, setRawPokemon ] = useState([]);
+  const [ poke, setPoke ] = useState([]);
 
   useEffect(() => {
     fetchRawPokemon();
+    console.log(poke, 'el poke bobo')
   }, [])
 
   const fetchRawPokemon = async () => {
     const res = await pokemonServices.getRawPokemon();
-    console.log(res, 'la resposta')
+    res.results.forEach(pokemon => {
+      (async function fetchFullPokemon () {
+        const fullPokemon = await pokemonServices.getFullPokemon(pokemon.url);
+        console.log(fullPokemon,poke, 'el fSull');
+        setPoke(prevState => [...prevState, fullPokemon]);
+      })();
+      
+    })
   }
 
   return (
     <>
+    {poke.length && poke.map(ele => <img alt='pokemon' src={ele.sprites.front_default}/>)}
     </>
   )
 }

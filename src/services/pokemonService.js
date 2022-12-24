@@ -8,3 +8,10 @@ pokemonServices.getRawPokemon = () => {
   .then(data => data)
   .catch(e => e);
 }
+
+pokemonServices.getFullPokemon = (pokeUrl) => {
+  return fetch(pokeUrl)
+  .then(res => res.json())
+  .then(data => data)
+  .catch(e => e);
+}
