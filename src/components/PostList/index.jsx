@@ -1,6 +1,6 @@
 import { useRef, useState, useCallback } from 'react';
 import { useSearch } from '../../hooks/useSearch';
-import Post from '../Post';
+import Post from '../post';
 import styles from './styles.module.css'
 
 

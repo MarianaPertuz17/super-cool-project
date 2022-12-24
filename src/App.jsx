@@ -13,7 +13,7 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path={routes.HOME} element={<PostsDashboard/>}/>
+        <Route path={routes.HOME} element={<PokemonDashboard/>}/>
         <Route path={routes.POSTS} element={<PostsDashboard/>}/>
         <Route path={routes.POKEMON} element={<PokemonDashboard/>}/>
       </Routes>
