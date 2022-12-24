@@ -6,8 +6,11 @@ export function PokemonDashboard () {
   const [ poke, setPoke ] = useState([]);
 
   useEffect(() => {
-    fetchRawPokemon();
-    console.log(poke, 'el poke bobo')
+    const controller = new AbortController();
+    const { signal } = controller;
+    fetchRawPokemon(signal);
+
+    return () => controller.abort();//H mmm
   }, [])
 
   const fetchRawPokemon = async () => {
@@ -15,7 +18,6 @@ export function PokemonDashboard () {
     res.results.forEach(pokemon => {
       (async function fetchFullPokemon () {
         const fullPokemon = await pokemonServices.getFullPokemon(pokemon.url);
-        console.log(fullPokemon,poke, 'el fSull');
         setPoke(prevState => [...prevState, fullPokemon]);
       })();
       
@@ -24,7 +26,7 @@ export function PokemonDashboard () {
 
   return (
     <>
-    {poke.length && poke.map(ele => <img alt='pokemon' src={ele.sprites.front_default}/>)}
+    {poke.length && poke.map((ele, index)=> <img alt='pokemon' key={index} src={ele.sprites.front_default}/>)}
     </>
   )
 }

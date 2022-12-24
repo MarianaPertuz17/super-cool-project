@@ -2,11 +2,14 @@ const url = 'https://pokeapi.co/api/v2/pokemon/';
 
 export const pokemonServices = {};
 
-pokemonServices.getRawPokemon = () => {
-  return fetch(url)
+pokemonServices.getRawPokemon = (signal) => {
+  return fetch(url, {signal})
   .then(res => res.json())
   .then(data => data)
-  .catch(e => e);
+  .catch(e => {
+    if (signal.aborted) return ;
+    return e;
+  });
 }
 
 pokemonServices.getFullPokemon = (pokeUrl) => {
