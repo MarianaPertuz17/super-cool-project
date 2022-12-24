@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
+import { PokemonList } from "../../components/pokemonList";
 import { pokemonServices } from "../../services/pokemonService";
 import styles from './styles.module.css';
 
@@ -7,12 +7,19 @@ import styles from './styles.module.css';
 export function PokemonDashboard () {
 
   const [ poke, setPoke ] = useState([]);
+  const intObserver = useRef();
+
+  const scrollToSection = (reference) => {
+    console.log(reference, 'la refe')
+    window.scrollTo({
+      top: reference.current.offsetTop
+    })
+  }
 
   useEffect(() => {
     const controller = new AbortController();
     const { signal } = controller;
     fetchRawPokemon(signal);
-
     return () => controller.abort();//H mmm
   }, [])
 
@@ -27,21 +34,14 @@ export function PokemonDashboard () {
     })
   }
 
+  const handleClick = () => {
+    scrollToSection(intObserver);
+  }
+
   return (
     <div className={styles.container}>   
       <div className={styles.grid}>
-      {poke.length && 
-        poke.map((ele, index) => {
-          return(
-            <Link className={styles.card} to={`pokemon/${ele.name}`} state={{ data: ele }}>
-              <button>
-                <img alt='pokemon' style={{width:'30vh', height: '30vh'}} key={index} src={ele.sprites.front_default}/>
-                <h3>{(ele.name).toUpperCase()}</h3> 
-              </button>
-            </Link>
-          )
-          })
-      }
+      {poke.length && <PokemonList list={poke} handleClick={handleClick}/>}
       </div>
     </div>
   )

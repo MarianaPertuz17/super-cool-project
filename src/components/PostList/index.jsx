@@ -3,8 +3,7 @@ import { useSearch } from '../../hooks/useSearch';
 import Post from '../post';
 import styles from './styles.module.css'
 
-
-export function PostList() {
+function PostList() {
 
   const [ pageNumber, setPageNumber ] = useState(1);
   const { isLoading, isError, error, results, hasNextPage } = useSearch(pageNumber);
@@ -23,7 +22,7 @@ export function PostList() {
     intObserver.current = new IntersectionObserver(posts => {
       if (posts[0].isIntersecting && hasNextPage) { //we want to get the first entry because we observe one by one. isIntersecting means if its on the page somewhere
         setPageNumber(prev => prev + 1 );
-        console.log('we are near the last post')
+        console.log('we are near the last post', intObserver)
       }
     })
 
