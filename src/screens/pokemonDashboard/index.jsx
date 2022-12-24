@@ -28,7 +28,16 @@ export function PokemonDashboard () {
   return (
     <div className={styles.container}>   
       <div className={styles.grid}>
-      {poke.length && poke.map((ele, index)=> <img alt='pokemon' style={{width:'30vh', height: '30vh'}} key={index} src={ele.sprites.front_default}/>)}
+      {poke.length && 
+        poke.map((ele, index) => {
+          return(
+          <button className={styles.card}>
+            <img alt='pokemon' style={{width:'30vh', height: '30vh'}} key={index} src={ele.sprites.front_default}/>
+            <h3>{(ele.name).toUpperCase()}</h3> 
+          </button>
+          )
+          })
+      }
       </div>
     </div>
   )
