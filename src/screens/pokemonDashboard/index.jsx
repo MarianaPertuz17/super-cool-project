@@ -13,8 +13,8 @@ export function PokemonDashboard () {
     return () => controller.abort();//H mmm
   }, [])
 
-  const fetchRawPokemon = async () => {
-    const res = await pokemonServices.getRawPokemon();
+  const fetchRawPokemon = async (signal) => {
+    const res = await pokemonServices.getRawPokemon(signal);
     res.results.forEach(pokemon => {
       (async function fetchFullPokemon () {
         const fullPokemon = await pokemonServices.getFullPokemon(pokemon.url);
