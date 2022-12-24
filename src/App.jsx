@@ -6,7 +6,7 @@ import {
   Route,
 } from 'react-router-dom';
 import { PostsDashboard } from './screens/postsDashboard';
-import { MoviesDashboard } from './screens/moviesDashboard';
+import { PokemonDashboard } from './screens/pokemonDashboard';
 
 
 function App() {
@@ -15,7 +15,7 @@ function App() {
       <Routes>
         <Route path={routes.HOME} element={<PostsDashboard/>}/>
         <Route path={routes.POSTS} element={<PostsDashboard/>}/>
-        {/* <Route path={routes.MOVIES} element={<MoviesDashboard/>}/> */}
+        <Route path={routes.POKEMON} element={<PokemonDashboard/>}/>
       </Routes>
     </Router>
   );
