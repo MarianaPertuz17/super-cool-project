@@ -7,12 +7,14 @@ import styles from './styles.module.css';
 export function PokemonDashboard () {
 
   const [ poke, setPoke ] = useState([]);
+  const counter = useRef(0);
 
   const scrollToSection = (reference = 0) => {
     window.scrollTo({
       top: reference,
       behavior: "smooth",
     })
+  
   }
 
 
@@ -21,11 +23,19 @@ export function PokemonDashboard () {
     const { signal } = controller;
     fetchRawPokemon(signal);  
     console.log('hola')
+    console.log(counter.current, 'antes del dif 0')
+    if (counter.current !== 0) {
+      counter.current = 0;
+      console.log(counter.current, 'despues del dif 0')
+      sessionStorage.setItem("scroll-position-pokemon", 0);  
+    } 
+    
     return () => controller.abort();
   }, [])
 
   useEffect(() => {
     scrollToSection(sessionStorage.getItem('scroll-position-pokemon'));
+    
   }, [poke])
 
   const fetchRawPokemon = async (signal) => {
@@ -42,6 +52,7 @@ export function PokemonDashboard () {
   const handleClick = () => {
     const position = window.scrollY;
     sessionStorage.setItem("scroll-position-pokemon", position);
+    counter.current = counter.current + 1;
   }
 
   return (
