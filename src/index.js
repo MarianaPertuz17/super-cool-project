@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-window.autoScroll = false;
+window.listLength = 0;
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

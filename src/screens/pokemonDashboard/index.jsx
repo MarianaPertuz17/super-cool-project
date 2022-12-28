@@ -9,12 +9,10 @@ export function PokemonDashboard () {
   const [ poke, setPoke ] = useState([]);
 
   const scrollToSection = (reference = 0) => {
-    console.log(reference, 'never be me')
     window.scrollTo({
-      top: sessionStorage.getItem('scroll-position-pokemon'),
+      top: reference,
       behavior: "smooth",
     })
-    console.log(reference, 'never be me 2')
     sessionStorage.setItem("scroll-position-pokemon", 0);
   }
 
@@ -22,15 +20,9 @@ export function PokemonDashboard () {
   useEffect(() => {
     const controller = new AbortController();
     const { signal } = controller;
-    fetchRawPokemon(signal);
-    console.log(window.autoScroll, 'goodby2')
-    if (window.autoScroll) scrollToSection(sessionStorage.getItem('scroll-position-pokemon'));
+    fetchRawPokemon(signal);    
     return () => controller.abort();
   }, [])
-
-  // useEffect(() => {
-  //   scrollToSection(sessionStorage.getItem('scroll-position-pokemon'));
-  // }, [poke])
 
 
   const fetchRawPokemon = async (signal) => {
@@ -41,12 +33,12 @@ export function PokemonDashboard () {
         setPoke(prevState => [...prevState, fullPokemon]);
       })();
     })
+    window.listLength = res.results.length;
   }
 
-  // useEffect(() => {
-  //   console.log(poke, 'POKE')
-  //   if (poke.length === 20) scrollToSection(sessionStorage.getItem('scroll-position-pokemon'));
-  // }, [poke])
+  useEffect(() => {
+    if (poke.length === window.listLength) scrollToSection(sessionStorage.getItem('scroll-position-pokemon'));
+  }, [poke])
 
   const handleClick = () => {
     const position = window.scrollY;
@@ -56,7 +48,7 @@ export function PokemonDashboard () {
   return (
     <div className={styles.container}>   
       <div className={styles.grid}>
-      {poke.length && <PokemonList list={poke} handleClick={handleClick}/>}
+        <PokemonList list={poke} handleClick={handleClick}/>
       </div>
     </div>
   )
