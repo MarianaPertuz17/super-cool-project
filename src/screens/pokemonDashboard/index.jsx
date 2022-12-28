@@ -33,7 +33,7 @@ export function PokemonDashboard () {
         setPoke(prevState => [...prevState, fullPokemon]);
       })();
     })
-    window.listLength = res.results.length;
+    window.listLength = res?.results.length;
   }
 
   useEffect(() => {
