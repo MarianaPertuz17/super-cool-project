@@ -30,7 +30,7 @@ export function PokemonDashboard () {
 
   const fetchRawPokemon = async (signal) => {
     const res = await pokemonServices.getRawPokemon(signal);
-    res.results.forEach(pokemon => {
+    res?.results.forEach(pokemon => {
       (async function fetchFullPokemon () {
         const fullPokemon = await pokemonServices.getFullPokemon(pokemon.url);
         setPoke(prevState => [...prevState, fullPokemon]);
