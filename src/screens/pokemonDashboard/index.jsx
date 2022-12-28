@@ -8,8 +8,7 @@ export function PokemonDashboard () {
 
   const [ poke, setPoke ] = useState([]);
 
-  const scrollToSection = (reference) => {
-    console.log(reference, 'la refe')
+  const scrollToSection = (reference = 0) => {
     window.scrollTo({
       top: reference,
       behavior: "smooth",
@@ -20,11 +19,14 @@ export function PokemonDashboard () {
   useEffect(() => {
     const controller = new AbortController();
     const { signal } = controller;
-    fetchRawPokemon(signal);
-    scrollToSection(sessionStorage.getItem('scroll-position-pokemon'));
+    fetchRawPokemon(signal);  
     console.log('hola')
     return () => controller.abort();
   }, [])
+
+  useEffect(() => {
+    scrollToSection(sessionStorage.getItem('scroll-position-pokemon'));
+  }, [poke])
 
   const fetchRawPokemon = async (signal) => {
     const res = await pokemonServices.getRawPokemon(signal);
@@ -39,7 +41,6 @@ export function PokemonDashboard () {
 
   const handleClick = () => {
     const position = window.scrollY;
-    console.log(position, 'll')
     sessionStorage.setItem("scroll-position-pokemon", position);
   }
 
