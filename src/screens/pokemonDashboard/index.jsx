@@ -45,10 +45,8 @@ export function PokemonDashboard () {
   }
 
   useEffect(() => {
-    if (poke.length === window.listLength && poke.length > 0) {
-      console.log(poke, 'POKE AQUI')
+    if (poke.length > 0 && poke.length === window.listLength) {
       window.pokemonListCacheMap.set('list', poke);
-      console.log(window.pokemonListCacheMap.has('list'));
       scrollToSection(sessionStorage.getItem('scroll-position-pokemon'));
     }
   }, [poke])
