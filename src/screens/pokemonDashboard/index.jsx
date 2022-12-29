@@ -7,11 +7,11 @@ import styles from './styles.module.css';
 export function PokemonDashboard () {
 
   const [ poke, setPoke ] = useState([]);
+  const pokemonListCacheMap = new Map();
 
   const scrollToSection = (reference = 0) => {
     window.scrollTo({
       top: reference,
-      behavior: "smooth",
     })
     sessionStorage.setItem("scroll-position-pokemon", 0);
   }
@@ -20,10 +20,18 @@ export function PokemonDashboard () {
   useEffect(() => {
     const controller = new AbortController();
     const { signal } = controller;
-    fetchRawPokemon(signal);    
+    fetchCachedPokemon(signal);  
     return () => controller.abort();
   }, [])
 
+
+  const fetchCachedPokemon = async (signal) => {
+    if (!pokemonListCacheMap.has('list')) {
+      pokemonListCacheMap.set('list', await fetchRawPokemon(signal))
+    } else {
+      return await pokemonListCacheMap.get('list');
+    }
+  }
 
   const fetchRawPokemon = async (signal) => {
     const res = await pokemonServices.getRawPokemon(signal);
