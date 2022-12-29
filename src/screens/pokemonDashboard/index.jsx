@@ -26,11 +26,16 @@ export function PokemonDashboard () {
 
 
   const fetchCachedPokemon = async (signal) => {
+    console.log(pokemonListCacheMap.has('list'), 'validatr', pokemonListCacheMap)
     if (!pokemonListCacheMap.has('list')) {
-      pokemonListCacheMap.set('list', await fetchRawPokemon(signal))
+      await fetchRawPokemon(signal)
+      console.log(poke, 'POKE AQUI')
+      pokemonListCacheMap.set('list', poke);
+      console.log(pokemonListCacheMap, 'doesnt have')
     } else {
-      return await pokemonListCacheMap.get('list');
-    }
+      console.log(pokemonListCacheMap, 'has')
+      return pokemonListCacheMap.get('list');
+    } 
   }
 
   const fetchRawPokemon = async (signal) => {
@@ -42,10 +47,13 @@ export function PokemonDashboard () {
       })();
     })
     window.listLength = res?.results.length;
+    return res?.results
   }
 
   useEffect(() => {
-    if (poke.length === window.listLength) scrollToSection(sessionStorage.getItem('scroll-position-pokemon'));
+    if (poke.length === window.listLength && poke.length > 0) {
+      scrollToSection(sessionStorage.getItem('scroll-position-pokemon'));
+    }
   }, [poke])
 
   const handleClick = () => {
