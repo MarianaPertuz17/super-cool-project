@@ -49,7 +49,7 @@ export function PokemonDashboard () {
       window.pokemonListCacheMap.set('list', poke);
       scrollToSection(sessionStorage.getItem('scroll-position-pokemon'));
     }
-  }, [poke]) //comment
+  }, [poke]) //comment2
 
   const handleClick = () => {
     const position = window.scrollY;
